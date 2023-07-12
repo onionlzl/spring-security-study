@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idlelong.rbac.mapper.UserRoleMapper">
+
+    <resultMap type="com.idlelong.rbac.entity.UserRoleEntity" id="BaseResultMap">
+        <!-- 用户id -->
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <!-- 角色id -->
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        <if test="true">
+          `user_id`, 
+          `role_id`    
+        </if>
+    </sql>
+
+    <delete id="removeByUserIds">
+        delete from `user_role`
+        <where>
+            <choose>
+                <when test="userIds != null and userIds.size() > 0">
+                    and user_id in
+                    <foreach collection="categoryIds" item="item" open="(" close=")" separator=",">
+                        #{item}
+                    </foreach>
+                </when>
+                <otherwise>
+                    and user_id = -1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+</mapper>
+

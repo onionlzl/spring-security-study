@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idlelong.rbac.mapper.RoleMapper">
+
+    <resultMap type="com.idlelong.rbac.entity.RoleEntity" id="BaseResultMap">
+        <!-- 主键 -->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 名称 -->
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        <if test="true">
+          `id`, 
+          `name`    
+        </if>
+    </sql>
+
+    <insert id="insertRolesByUserId">
+        insert into user_role(user_id, role_id) values
+        <foreach collection="roleIds" separator="," item="roleId">
+            (#{userId}, #{roleId})
+        </foreach>
+    </insert>
+
+
+</mapper>
+

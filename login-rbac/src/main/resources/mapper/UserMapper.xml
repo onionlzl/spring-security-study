@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idlelong.rbac.mapper.UserMapper">
+
+    <resultMap type="com.idlelong.rbac.entity.UserEntity" id="BaseResultMap">
+        <!-- 主键 -->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <!-- 用户名 -->
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <!-- 密码 -->
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        <if test="true">
+          `id`, 
+          `username`, 
+          `password`    
+        </if>
+    </sql>
+
+    <!--查询根据登录条件-->
+    <select id="selectByLogin" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"></include>
+        FROM `user`
+        <where>
+            <if test="username != null and username != ''">
+               AND `username` = #{username}
+            </if>
+            <if test="password != null and password != ''">
+               AND `password` = #{password}
+            </if>
+        </where>
+    </select>
+    <select id="selectPage" resultType="com.idlelong.rbac.vo.UserPageVO">
+        select
+            id, username
+        from
+            user
+                ${ew.customSqlSegment}
+    </select>
+
+</mapper>
+

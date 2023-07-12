@@ -1,0 +1,36 @@
+server:
+  port: 8104
+security:
+  jwt:
+    # 秘钥
+    secretKey: idlelong
+    # 过期时间 单位小时
+    expiration:
+      time: 12
+    tokenHeader: Authorization #JWT存储的请求头
+    tokenHead: 'Bearer '  #JWT负载中拿到开头
+spring:
+  # 数据库连接
+  datasource:
+    url: jdbc:mysql://124.222.209.142:3206/security_rbac?characterEncoding=utf-8&useSSL=false&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=UTC
+    username: root
+    password: idlelong
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: idlelong # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+# MP 配置
+mybatis-plus:
+  mapper-locations: classpath*:/**/mapper/*Mapper.xml
+  configuration:
+    # 驼峰转换
+    map-underscore-to-camel-case: true
+    # 配置控制台打印SQL
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # id生成规则,自增
+      id-type: auto
