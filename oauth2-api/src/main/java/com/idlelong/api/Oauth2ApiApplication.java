@@ -1,19 +1,20 @@
-package com.idlelong.gateway;
+package com.idlelong.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * oauth2网关应用程序
+ * oauth2 api应用程序
  *
  * @author lizhenlong
- * @date 2023/07/03
+ * @date 2023/07/13
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class Oauth2GatewayApplication {
+public class Oauth2ApiApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(Oauth2GatewayApplication.class,args);
+        SpringApplication.run(Oauth2ApiApplication.class);
     }
 }

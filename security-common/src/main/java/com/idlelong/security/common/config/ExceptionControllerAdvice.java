@@ -39,7 +39,7 @@ public class ExceptionControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(value = BizException.class)
-    public CommonResult handle(BizException e) {
+    public CommonResult<String> handle(BizException e) {
         if (e.getErrorCode() != null) {
             return CommonResult.failed(e.getErrorCode());
         }
@@ -48,7 +48,7 @@ public class ExceptionControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(value = {BindException.class, ValidationException.class, MethodArgumentNotValidException.class})
-    public CommonResult handleValidException(Exception e) {
+    public CommonResult<String> handleValidException(Exception e) {
         StringBuilder errorMessage = new StringBuilder();
         if (e instanceof BindException) {
             BindingResult bindingResult = ((MethodArgumentNotValidException) e).getBindingResult();
@@ -65,7 +65,7 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler({Throwable.class})
-    public CommonResult handle(Throwable ex) {
+    public CommonResult<String> handle(Throwable ex) {
         log.error("未知异常捕获msg: {}", ex.getMessage(), ex);
         return CommonResult.failed("该操作异常！");
     }

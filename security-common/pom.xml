@@ -29,6 +29,14 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!--M1芯片解决Redis域名的DNS问题 -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>4.1.76.Final</version>
+            <classifier>osx-aarch_64</classifier>
+        </dependency>
+
         <!--MyBatis-plus，ORM框架，访问并操作数据库-->
         <dependency>
             <groupId>com.baomidou</groupId>

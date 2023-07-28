@@ -4,7 +4,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: oauth2-auth
+    name: idlelong-oauth2-auth
   cloud:
     nacos:
       discovery:

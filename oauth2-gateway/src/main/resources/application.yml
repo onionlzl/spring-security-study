@@ -1,0 +1,54 @@
+server:
+  port: 9201
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: idlelong-oauth2-gateway
+  cloud:
+    # Nacos相关配置
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    # gateway网关相关配置
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名,默认是大写
+      routes:
+        # api路由
+        - id: oauth2-api-route
+          uri: lb://idlelong-oauth2-api
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+        # 权限路由
+        - id: oauth2-auth-route
+          uri: lb://idlelong-oauth2-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+  # oauth2配置
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:9401/rsa/pulickey' #配置RSA的公钥访问地址
+  # redis相关配置
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password: idlelong
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/**"
+      - "/api/**"
